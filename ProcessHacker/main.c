@@ -94,18 +94,18 @@ static PPH_LIST DialogList = NULL; // 다이얼로그 리스트 클래스 변수 선언
 static PPH_LIST FilterList = NULL; // 필터 리스트 클래스 변수 선언
 static PH_AUTO_POOL BaseAutoPool; // "용도 확인 필요" 클래스 변수 선언
 
-INT WINAPI wWinMain(
-    _In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ PWSTR lpCmdLine,
-    _In_ INT nCmdShow
+INT WINAPI wWinMain( // 프로그램의 시작 점
+    _In_ HINSTANCE hInstance, // 프로그램의 인스턴스 핸들
+    _In_opt_ HINSTANCE hPrevInstance, // 바로 앞에 실행된 현재 프로그램의  인스턴스 핸들
+    _In_ PWSTR lpCmdLine, // 명령 행으로 입력된 프로그램 인수, 도스의 argv 인수에 해당
+    _In_ INT nCmdShow // 프로그램이 처음 실행 되었을 때 윈도우 창의 형태
     )
 {
     LONG result;
-#ifdef DEBUG
-    PHP_BASE_THREAD_DBG dbg;
-#endif
-    HANDLE currentTokenHandle;
+#ifdef DEBUG // (조건 전처리문) 디버그가 정의 되어 있다면
+    PHP_BASE_THREAD_DBG dbg; // dbg 변수 선언
+#endif // 조건 전처리문 종료
+    HANDLE currentTokenHandle; // 최근 토큰 핸들 값으 저장할 변수 선언
 
     CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 #ifndef DEBUG
