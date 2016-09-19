@@ -90,22 +90,22 @@ PH_STARTUP_PARAMETERS PhStartupParameters;
 PH_PROVIDER_THREAD PhPrimaryProviderThread;
 PH_PROVIDER_THREAD PhSecondaryProviderThread;
 
-static PPH_LIST DialogList = NULL; // ´ÙÀÌ¾ó·Î±× ¸®½ºÆ® Å¬·¡½º º¯¼ö ¼±¾ð
-static PPH_LIST FilterList = NULL; // ÇÊÅÍ ¸®½ºÆ® Å¬·¡½º º¯¼ö ¼±¾ð
-static PH_AUTO_POOL BaseAutoPool; // "¿ëµµ È®ÀÎ ÇÊ¿ä" Å¬·¡½º º¯¼ö ¼±¾ð
+static PPH_LIST DialogList = NULL; // ë‹¤ì´ì–¼ë¡œê·¸ ë¦¬ìŠ¤íŠ¸ í´ëž˜ìŠ¤ ë³€ìˆ˜ ì„ ì–¸
+static PPH_LIST FilterList = NULL; // í•„í„° ë¦¬ìŠ¤íŠ¸ í´ëž˜ìŠ¤ ë³€ìˆ˜ ì„ ì–¸
+static PH_AUTO_POOL BaseAutoPool; // "ìš©ë„ í™•ì¸ í•„ìš”" í´ëž˜ìŠ¤ ë³€ìˆ˜ ì„ ì–¸
 
-INT WINAPI wWinMain( // ÇÁ·Î±×·¥ÀÇ ½ÃÀÛ Á¡
-    _In_ HINSTANCE hInstance, // ÇÁ·Î±×·¥ÀÇ ÀÎ½ºÅÏ½º ÇÚµé
-    _In_opt_ HINSTANCE hPrevInstance, // ¹Ù·Î ¾Õ¿¡ ½ÇÇàµÈ ÇöÀç ÇÁ·Î±×·¥ÀÇ  ÀÎ½ºÅÏ½º ÇÚµé
-    _In_ PWSTR lpCmdLine, // ¸í·É ÇàÀ¸·Î ÀÔ·ÂµÈ ÇÁ·Î±×·¥ ÀÎ¼ö, µµ½ºÀÇ argv ÀÎ¼ö¿¡ ÇØ´ç
-    _In_ INT nCmdShow // ÇÁ·Î±×·¥ÀÌ Ã³À½ ½ÇÇà µÇ¾úÀ» ¶§ À©µµ¿ì Ã¢ÀÇ ÇüÅÂ
+INT WINAPI wWinMain( // í”„ë¡œê·¸ëž¨ì˜ ì‹œìž‘ ì 
+    _In_ HINSTANCE hInstance, // í”„ë¡œê·¸ëž¨ì˜ ì¸ìŠ¤í„´ìŠ¤ í•¸ë“¤
+    _In_opt_ HINSTANCE hPrevInstance, // ë°”ë¡œ ì•žì— ì‹¤í–‰ëœ í˜„ìž¬ í”„ë¡œê·¸ëž¨ì˜  ì¸ìŠ¤í„´ìŠ¤ í•¸ë“¤
+    _In_ PWSTR lpCmdLine, // ëª…ë ¹ í–‰ìœ¼ë¡œ ìž…ë ¥ëœ í”„ë¡œê·¸ëž¨ ì¸ìˆ˜, ë„ìŠ¤ì˜ argv ì¸ìˆ˜ì— í•´ë‹¹
+    _In_ INT nCmdShow // í”„ë¡œê·¸ëž¨ì´ ì²˜ìŒ ì‹¤í–‰ ë˜ì—ˆì„ ë•Œ ìœˆë„ìš° ì°½ì˜ í˜•íƒœ
     )
 {
     LONG result;
-#ifdef DEBUG // (Á¶°Ç ÀüÃ³¸®¹®) µð¹ö±×°¡ Á¤ÀÇ µÇ¾î ÀÖ´Ù¸é
-    PHP_BASE_THREAD_DBG dbg; // dbg º¯¼ö ¼±¾ð
-#endif // Á¶°Ç ÀüÃ³¸®¹® Á¾·á
-    HANDLE currentTokenHandle; // ÃÖ±Ù ÅäÅ« ÇÚµé °ªÀ¸ ÀúÀåÇÒ º¯¼ö ¼±¾ð
+#ifdef DEBUG // (ì¡°ê±´ ì „ì²˜ë¦¬ë¬¸) ë””ë²„ê·¸ê°€ ì •ì˜ ë˜ì–´ ìžˆë‹¤ë©´
+    PHP_BASE_THREAD_DBG dbg; // dbg ë³€ìˆ˜ ì„ ì–¸
+#endif // ì¡°ê±´ ì „ì²˜ë¦¬ë¬¸ ì¢…ë£Œ
+    HANDLE currentTokenHandle; // ìµœê·¼ í† í° í•¸ë“¤ ê°’ìœ¼ ì €ìž¥í•  ë³€ìˆ˜ ì„ ì–¸
 
     CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 #ifndef DEBUG
@@ -894,7 +894,7 @@ VOID PhpProcessStartupParameters(
     VOID
     )
 {
-    static PH_COMMAND_LINE_OPTION options[] =
+    static PH_COMMAND_LINE_OPTION options[] = // ìœ ë‹ˆì½”ë“œ ìž‘ì„± ì‹œ "" ì•žì— ì ‘ë‘ì‚¬ë¡œ Lì„ ì‚¬ìš©í•œë‹¤.
     {
         { PH_ARG_SETTINGS, L"settings", MandatoryArgumentType },
         { PH_ARG_NOSETTINGS, L"nosettings", NoArgumentType },
